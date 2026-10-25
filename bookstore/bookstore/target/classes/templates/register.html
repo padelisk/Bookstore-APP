@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+    <h1>Register</h1>
+    <form th:action="@{/register}" method="post" th:object="${user}">
+        <!-- User Details -->
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" th:field="*{username}" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" th:field="*{password}" required>
+        </div>
+
+        <!-- Profile Details -->
+        <div>
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" th:field="*{fullName}" required>
+        </div>
+        <div>
+            <label for="address">Address:</label>
+            <input type="text" id="address" th:field="*{address}" required>
+        </div>
+        <div>
+            <label for="age">Age:</label>
+            <input type="number" id="age" th:field="*{age}" required>
+        </div>
+        <div>
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" th:field="*{phoneNumber}" required>
+        </div>
+        <div>
+<label for="preferredCategory">Preferred Category:</label>
+            <input type="text" id="preferredCategory" th:field="*{preferredCategories}" />
+        </div>
+        <div>
+            <label for="favoriteAuthors">Favorite Authors:</label>
+            <input type="text" id="favoriteAuthors" th:field="*{favoriteAuthors}" required>
+        </div>
+
+        <div>
+            <button type="submit">Register</button>
+        </div>
+    </form>
+    <a href="/login">Already have an account? Login here</a>
+</body>
+</html>
+
+

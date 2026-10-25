@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Profile</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+    <h1>User Profile</h1>
+    <div>
+        <p><strong>Full Name:</strong> <span th:text="${user.fullName}"></span></p>
+        <p><strong>Address:</strong> <span th:text="${user.address}"></span></p>
+        <p><strong>Age:</strong> <span th:text="${user.age}"></span></p>
+        <p><strong>Phone Number:</strong> <span th:text="${user.phoneNumber}"></span></p>
+        <p><strong>Preferred Categories:</strong> <span th:text="${user.preferredCategories}"></span></p>
+        <p><strong>Favorite Authors:</strong> <span th:text="${user.favoriteAuthors}"></span></p>
+    </div>
+
+    <h2>My Book Offers</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Summary</th>
+                <th>Status</th>
+                <th>Requests</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="bookOffer : ${userBookOffers}">
+                <td th:text="${bookOffer.title}">Title</td>
+                <td th:text="${bookOffer.author}">Author</td>
+                <td th:text="${bookOffer.category}">Category</td>
+                <td th:text="${bookOffer.summary}">Summary</td>
+                <td>
+                    <span th:if="${bookOffer.isTaken}">
+                        Taken by <span th:text="${takenByUsers[bookOffer.id]}">User</span>
+                    </span>
+                    <span th:if="${!bookOffer.isTaken}">
+                        Available
+                    </span>
+                </td>
+                <td>
+                    <a th:href="@{/user-profile/view-requests/{bookOfferId}(bookOfferId=${bookOffer.id})}">View Requests</a>
+                </td>
+                <td>
+                    <form th:action="@{/user-profile/delete-book-offer/{bookOfferId}(bookOfferId=${bookOffer.id})}" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Add a New Book Offer</h2>
+    <form th:action="@{/user-profile/add-book-offer}" method="post" th:object="${newBookOffer}">
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" th:field="*{title}" required>
+        </div>
+        <div>
+            <label for="author">Author:</label>
+            <input type="text" id="author" th:field="*{author}" required>
+        </div>
+        <div>
+            <label for="category">Category:</label>
+            <input type="text" id="category" th:field="*{author}" required>
+
+        </div>
+        <div>
+            <label for="summary">Summary:</label>
+            <input id="summary" th:field="*{summary}" required></input>
+        </div>
+        <div>
+            <button type="submit">Add Book Offer</button>
+        </div>
+    </form>
+
+    <h2>All Available Book Offers</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Category</th>
+                <th>Summary</th>
+                <th>Status</th>
+                <th>Request</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="bookOffer : ${allBookOffers}">
+                <td th:text="${bookOffer.title}">Title</td>
+                <td th:text="${bookOffer.author}">Author</td>
+                <td th:text="${bookOffer.category}">Category</td>
+                <td th:text="${bookOffer.summary}">Summary</td>
+                <td>
+                    <span th:if="${bookOffer.isTaken}">
+                        Taken by <span th:text="${takenByUsers[bookOffer.id]}">User</span>
+                    </span>
+                    <span th:if="${!bookOffer.isTaken}">
+                        Available
+                    </span>
+                </td>
+                <td>
+                    <form th:action="@{/user-profile/request-book-offer/{bookOfferId}(bookOfferId=${bookOffer.id})}" method="post" th:if="${!bookOffer.isTaken}">
+                        <input type="text" name="message" placeholder="Request message" >
+                        <button type="submit">Request</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <a href="/logout">Logout</a>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

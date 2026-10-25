@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book Requests</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+    <h1>Book Requests</h1>
+    <table>
+        <thead>
+            <tr>
+                <th> User </th>
+                <th> Message </th>
+                <th> Status </th>
+                <th> Phone Number </th>
+                <th> Action </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="bookRequest : ${bookRequests}">
+                <td th:text="${bookRequest.user.username}">User</td>
+                <td th:text="${bookRequest.message}">Message</td>
+                <td th:text="${bookRequest.isSelected ? 'Selected' : (bookRequest.isNotified ? 'Notified' : 'Pending')}">Status</td>
+                <td th:text="${bookRequest.user.phoneNumber}">Phone</td>
+                <td>
+                    <form th:action="@{/user-profile/select-request/{bookRequestId}(bookRequestId=${bookRequest.id})}" method="post" th:if="${!bookRequest.isSelected}">
+                        <button type="submit">Select</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/user-profile">Back to Profile</a>
+</body>
+</html>
+
+
+
+
+
