@@ -2,7 +2,7 @@
 
 A web application where users can share books with each other. Users create a profile, offer books they own, and request books from other users. The owner of a book sees all requests and chooses who gets it.
 
-Team project (2 students), University of Ioannina, 2024. Developed in Scrum, in four two-week sprints.
+Team project (2 students), University of Ioannina, 2024..
 
 ## Features
 
